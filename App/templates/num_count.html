@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>新型冠状病毒肺炎</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='bootstrap-4.4.1-dist/css/bootstrap.css') }}">
+    <link rel="stylesheet"
+          href="{{ url_for('static',filename='bootstrap-select-1.13.12/css/bootstrap-select.min.css') }}">
+    <script src="{{ url_for('static',filename='incubator-echarts-4.6.0/dist/echarts.js') }}"></script>
+    <script src="{{ url_for('static',filename='jquery-3.4.1.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+    <script src="{{ url_for('static',filename='bootstrap-4.4.1-dist/js/bootstrap.js') }}"></script>
+    <script src="{{ url_for('static',filename='bootstrap-select-1.13.12/js/bootstrap-select.min.js') }}"></script>
+</head>
+<body>
+<div class="main_content">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="my-0 mr-md-auto font-weight-normal text-white">
+            <h4></h4>
+            <h4>新型冠状病毒肺炎中医药推荐方分析系统</h4>
+            <h4></h4>
+        </div>
+        <div class="my-2"><a href="/" style="color: #1b1e21"> 返回</a></div>
+        <h6 class="text-white"></h6>
+    </nav>
+
+    <div class="container-fluid" style="padding-top: 80px;">
+
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div class="form-group mb-3">
+                    <div>
+                        <button class="btn btn-primary" type="button" id="button-addon2" onclick="clsearch()">Search</button>
+                    </div>
+                    <select id="herb" class="selectpicker form-control" multiple  data-live-search="true">
+                        {% for index,pres in pres_dic.items() %}
+                            <option value="{{ index }}">{{ pres }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div id="xing" class="form-control" style="height:400px;"></div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div id="wei" class="form-control" style="height:400px;"></div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div id="guijing" class="form-control" style="height:400px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script type="text/javascript">
+    var result = {{data |tojson}};
+    var elem_list = {{ elem|safe }};
+
+    $(function () {
+        if (JSON.stringify(result) == '{}') {
+            console.log('return null');
+        } else {
+            draw_echarts_bar(result);
+        }
+    });
+
+    function draw_echarts_bar(result) {
+        var object_title = result.object_list;
+        var legend_data = result.legend_data_list;
+        var object_result_list = result.result_list;
+
+
+        elem_list.forEach((item_f, index_f, array_f) => {
+            var series_data = new Array();
+
+            object_result_list[index_f].forEach((item, index, array) => {
+                //执行代码
+                var series_data_content;
+                if (index > 0) {
+                    series_data_content = {
+                        'name': legend_data[index],
+                        'type': 'bar',
+                        'label': labelOption,
+                        'data': item
+                    };
+                } else {
+                    series_data_content = {
+                        'name': legend_data[index],
+                        'type': 'bar',
+                        'barGap': 0,
+                        'label': labelOption,
+                        'data': item
+                    };
+                }
+                series_data.push(series_data_content);
+            });
+
+            // 基于准备好的dom，初始化echarts实例
+            var app = echarts.init(document.getElementById(item_f));
+            app.configParameters = {
+                rotate: {
+                    min: -90,
+                    max: 90
+                },
+                align: {
+                    options: {
+                        left: 'left',
+                        center: 'center',
+                        right: 'right'
+                    }
+                },
+                verticalAlign: {
+                    options: {
+                        top: 'top',
+                        middle: 'middle',
+                        bottom: 'bottom'
+                    }
+                },
+                position: {
+                    options: echarts.util.reduce(posList, function (map, pos) {
+                        map[pos] = pos;
+                        return map;
+                    }, {})
+                },
+                distance: {
+                    min: 0,
+                    max: 100
+                }
+            };
+
+            app.config = {
+                rotate: 90,
+                align: 'left',
+                verticalAlign: 'middle',
+                position: 'insideBottom',
+                distance: 15,
+                onChange: function () {
+                    var labelOption = {
+                        normal: {
+                            rotate: app.config.rotate,
+                            align: app.config.align,
+                            verticalAlign: app.config.verticalAlign,
+                            position: app.config.position,
+                            distance: app.config.distance
+                        }
+                    };
+                    myChart.setOption({
+                        series: [{
+                            label: labelOption
+                        }, {
+                            label: labelOption
+                        }, {
+                            label: labelOption
+                        }, {
+                            label: labelOption
+                        }]
+                    });
+                }
+            };
+            var posList = [
+                'left', 'right', 'top', 'bottom',
+                'inside',
+                'insideTop', 'insideLeft', 'insideRight', 'insideBottom',
+                'insideTopLeft', 'insideTopRight', 'insideBottomLeft', 'insideBottomRight'
+            ];
+
+            var labelOption = {
+                show: true,
+                position: app.config.position,
+                distance: app.config.distance,
+                align: app.config.align,
+                verticalAlign: app.config.verticalAlign,
+                rotate: app.config.rotate,
+                formatter: '{c}  {name|{a}}',
+                fontSize: 16,
+                rich: {
+                    name: {
+                        textBorderColor: '#fff'
+                    }
+                }
+            };
+            option = {
+                color: ['#003366', '#006699', '#4cabce', '#e5323e', '#e01b29'],
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'shadow'
+                    }
+                },
+                legend: {
+                    data: legend_data   //['Forest', 'Steppe', 'Desert', 'Wetland']
+                },
+                toolbox: {
+                    show: true,
+                    orient: 'vertical',
+                    left: 'right',
+                    top: 'center',
+                    feature: {
+                        mark: {show: true},
+                        dataView: {show: true, readOnly: false},
+                        magicType: {show: true, type: ['line', 'bar', 'stack', 'tiled']},
+                        restore: {show: true},
+                        saveAsImage: {show: true}
+                    }
+                },
+                xAxis: [
+                    {
+                        type: 'category',
+                        axisTick: {show: false},
+                        data: object_title[index_f]    // 横坐标
+                    }
+                ],
+                yAxis: [
+                    {
+                        type: 'value'
+                    }
+                ],
+                series: series_data
+            };
+            // 使用刚指定的配置项和数据显示图表。
+            app.setOption(option);
+        });
+
+    }
+
+    function clsearch() {
+        var value = $('#herb').val();
+        for (var i = 0; i < value.length; i++) {
+            value[i] = parseInt(value[i])+1;
+        }
+        var query = value.join(',');
+        console.log(query);
+        window.location.replace("http://127.0.0.1:5000/num_count/"+query);
+    }
+
+</script>
+</body>
+</html>

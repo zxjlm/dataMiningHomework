@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>主页</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='bootstrap-4.4.1-dist/css/bootstrap.css') }}">
+    <link rel="stylesheet"
+          href="{{ url_for('static',filename='bootstrap-select-1.13.12/css/bootstrap-select.min.css') }}">
+    <script src="{{ url_for('static',filename='incubator-echarts-4.6.0/dist/echarts.js') }}"></script>
+    <script src="{{ url_for('static',filename='jquery-3.4.1.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+    <script src="{{ url_for('static',filename='bootstrap-4.4.1-dist/js/bootstrap.js') }}"></script>
+    <script src="{{ url_for('static',filename='bootstrap-select-1.13.12/js/bootstrap-select.min.js') }}"></script>
+</head>
+<body>
+
+<div class="main_content">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="my-0 mr-md-auto font-weight-normal text-white">
+            <h4></h4>
+            <h4>新型冠状病毒肺炎中医药推荐方分析系统</h4>
+            <h4></h4>
+        </div>
+        <!-- <a class="navbar-brand text-white">南京中医药大学干部在线学习考试系统</a> -->
+        <h6 class="text-white"></h6>
+    </nav>
+
+    <div class="container-fluid" style="padding-top: 80px;">
+        <div class="card-group">
+            <div class="card" style="width: 18rem;">
+                <img src="{{ url_for('static',filename='/pic/lhana.jpg') }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">频次统计</h5>
+                    <p class="card-text">频次统计将会根据所选的各省处方,进行处方所含药物性味归经的统计分析.</p>
+                    <a href="/num_count" class="btn btn-primary">进行频次统计</a>
+                </div>
+            </div>
+            <div class="card" style="width: 18rem;">
+                <img src="{{ url_for('static',filename='/pic/assana.jpg') }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">关联分析</h5>
+                    <p class="card-text">关联分析又称关联挖掘，就是在交易数据、关系数据或其他信息载体中，查找存在于项目集合或对象集合之间的频繁模式、关联、相关性或因果结构。</p>
+                    <a href="/rules" class="btn btn-primary">进行关联分析</a>
+                </div>
+            </div>
+            <div class="card" style="width: 18rem;">
+                <img src="{{ url_for('static',filename='/pic/renneana.jpg') }}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">聚类分析</h5>
+                    <p class="card-text">聚类分析指将物理或抽象对象的集合分组为由类似的对象组成的多个类的分析过程。 它是一种重要的人类行为。 聚类分析的目标就是在相似的基础上收集数据来分类。</p>
+                    <a href="/km" class="btn btn-primary">进行聚类分析</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
