@@ -241,7 +241,7 @@
         }
         var query = value.join(',');
         console.log(query);
-        window.location.replace("http://127.0.0.1:5000/num_count/"+query);
+        window.location.replace('{{ url_for('num_count') }}'+query);
     }
 
 </script>
