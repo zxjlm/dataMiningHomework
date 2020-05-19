@@ -49,7 +49,10 @@
             </div>
         </div>
     </form>
-    <button id="tijiao" class="btn btn-primary" style="margin-top: 10px;margin-left: 80%">开始分析</button>
+    <button id="tijiao" class="btn btn-primary" style="margin-top: 10px;margin-left: 80%">
+        <span class="spinner-border spinner-border-sm" id="btn_spin" role="status" aria-hidden="true"
+                      hidden></span>
+        开始分析</button>
 
     <hr>
 
@@ -62,6 +65,7 @@
 
 <script>
     $('#tijiao').click(function () {
+        $("#btn_spin").removeAttr("hidden");
         var value = $('#herb').val();
         for (var i = 0; i < value.length; i++) {
             value[i] = parseInt(value[i]) + 1;
@@ -76,7 +80,7 @@
             contentType: "application/json", // 默认以formdata形式发送给后台
             sync: false,
             success: function (res) {
-                {#$().alert('close');#}
+                $("#btn_spin").attr("hidden", "true")
                 $("#body_content").html(res);
             }
         })

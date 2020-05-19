@@ -62,7 +62,7 @@
             contentType: "application/json", // 默认以formdata形式发送给后台
             sync: false,
             success: function (res) {
-                $("#btn_spin").attr("hidden", "true")
+                $("#btn_spin").attr("hidden", "true");
                 $("#body_add").html(res);
             }
         })
