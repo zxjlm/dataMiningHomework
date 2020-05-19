@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 __author__ = 'xiejdm'
 
+from secure import sql_url
+
 UPLOAD_FOLDER = '/home/xiejdm/PycharmProjects/data_analysis/App/uploads/'
 ALLOWED_EXTENSIONS = set(['csv', 'xls', 'xlsx', 'tsv', 'csvz', 'tsvz'])
 
@@ -12,8 +14,7 @@ SECRET_KEY = '1111111111111111'
 DEBUG = True
 # SQLALCHEMY
 SQLALCHEMY_TRACK_MODIFICATIONS = True
-SQLALCHEMY_DATABASE_URI = 'mysql+cymysql://root:zxj6131ming@127.0.0.1/zxj_course'
-
+SQLALCHEMY_DATABASE_URI = sql_url
 # 显示SQL语句
 SQLALCHEMY_ECHO = False
 
