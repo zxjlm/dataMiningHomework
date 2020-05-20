@@ -1,73 +1,65 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>聚类分析</title>
-    <link rel="stylesheet" href="{{ url_for('static',filename='bootstrap-4.4.1-dist/css/bootstrap.css') }}">
-    <link rel="stylesheet"
-          href="{{ url_for('static',filename='bootstrap-select-1.13.12/css/bootstrap-select.min.css') }}">
-    <script src="{{ url_for('static',filename='incubator-echarts-4.6.0/dist/echarts.js') }}"></script>
-    <script src="{{ url_for('static',filename='jquery-3.4.1.min.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-            crossorigin="anonymous"></script>
-    <script src="{{ url_for('static',filename='bootstrap-4.4.1-dist/js/bootstrap.js') }}"></script>
-    <script src="{{ url_for('static',filename='bootstrap-select-1.13.12/js/bootstrap-select.min.js') }}"></script>
-</head>
-<body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="my-0 mr-md-auto font-weight-normal text-white">
-        <h4></h4>
-        <h4>新型冠状病毒肺炎中医药推荐方分析系统</h4>
-        <h4></h4>
-    </div>
-    <div class="my-2"><a href="/" style="color: #1b1e21"> 返回</a></div>
-    <h6 class="text-white"></h6>
-</nav>
+{% extends 'base.html' %}
+{% block title %}
+    聚类分析
+{% endblock %}
 
-<div class="container" style="padding-top: 80px;">
-    <h2>对全部的新冠肺炎数据进行聚类</h2>
-    <div class="form-group mb-3" style="margin-top: 20px">
-        <div>
-            <label for="num">输入聚类的簇数:</label>
-            <input type="number" id="num" name="num" value="7">
+{% block content %}
+
+
+    <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="my-0 mr-md-auto font-weight-normal text-white">
+            <h4></h4>
+            <h4>新型冠状病毒肺炎中医药推荐方分析系统</h4>
+            <h4></h4>
         </div>
-        <div>
-            <button class="btn btn-primary" type="button" id="btn">
+        <div class="my-2"><a href="/" style="color: #1b1e21"> 返回</a></div>
+        <h6 class="text-white"></h6>
+    </nav>
+
+    <div class="container" style="padding-top: 80px;">
+        <h2>对全部的新冠肺炎数据进行聚类</h2>
+        <div class="form-group mb-3" style="margin-top: 20px">
+            <div>
+                <label for="num">输入聚类的簇数:</label>
+                <input type="number" id="num" name="num" value="7">
+            </div>
+            <div>
+                <button class="btn btn-primary" type="button" id="btn">
                 <span class="spinner-border spinner-border-sm" id="btn_spin" role="status" aria-hidden="true"
                       hidden></span>
-                开始聚类
-            </button>
+                    开始聚类
+                </button>
+            </div>
         </div>
     </div>
-</div>
-<hr>
+    <hr>
 
-<div id="body_add">
-    <div style="padding:2%" id="body_content">
-        <div class="spinner-grow" id="spinner" style="width: 3rem; height: 3rem;" role="status" hidden>
-            <span class="sr-only">Loading...</span>
+    <div id="body_add">
+        <div style="padding:2%" id="body_content">
+            <div class="spinner-grow" id="spinner" style="width: 3rem; height: 3rem;" role="status" hidden>
+                <span class="sr-only">Loading...</span>
+            </div>
         </div>
     </div>
-</div>
 
 
-<script>
-    $('#btn').click(function () {
-        $("#btn_spin").removeAttr("hidden");
-        $.ajax({
-            url: '{{ url_for('ap_km') }}',
-            type: 'POST',
-            data: JSON.stringify({"num": $('#num').val()}),
-            contentType: "application/json", // 默认以formdata形式发送给后台
-            sync: false,
-            success: function (res) {
-                $("#btn_spin").attr("hidden", "true");
-                $("#body_add").html(res);
-            }
+    <script>
+        $('#btn').click(function () {
+            $("#btn_spin").removeAttr("hidden");
+            $.ajax({
+                url: '{{ url_for('ap_km') }}',
+                type: 'POST',
+                data: JSON.stringify({"num": $('#num').val()}),
+                contentType: "application/json", // 默认以formdata形式发送给后台
+                sync: false,
+                success: function (res) {
+                    $("#btn_spin").attr("hidden", "true");
+                    $("#body_add").html(res);
+                }
+            })
         })
-    })
-</script>
+    </script>
 
-</body>
-</html>
+    </body>
+{% endblock %}

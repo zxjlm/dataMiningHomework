@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}
+
+    {% endblock %}</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.css" rel="stylesheet">
+    <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.js"></script>
+    {% block echarts %}
+        <script src="https://cdn.bootcdn.net/ajax/libs/echarts/4.7.0/echarts.js"></script>
+        <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+        <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+                integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+                crossorigin="anonymous"></script>
+
+        <script src="https://cdn.bootcdn.net/ajax/libs/bootstrap-select/1.13.12/js/bootstrap-select.min.js"></script>
+        <link href="https://cdn.bootcdn.net/ajax/libs/bootstrap-select/1.13.12/css/bootstrap-select.min.css"
+              rel="stylesheet">
+    {% endblock %}
+
+</head>
+
+{% block content %}
+
+{% endblock %}
+
+</html>
