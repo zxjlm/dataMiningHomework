@@ -14,7 +14,7 @@ restless.create_api(Diagnosis, include_methods=['text'], methods=['GET', 'POST',
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('china.html')
 
 
 @app.route('/num_count/')
@@ -91,3 +91,8 @@ def ap_km():
 @app.route('/km')
 def km():
     return render_template('km.html')
+
+
+@app.route('/china')
+def china():
+    return render_template('index.html')

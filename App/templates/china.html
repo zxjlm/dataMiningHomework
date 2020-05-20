@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中国疫情现状</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='bootstrap-4.4.1-dist/css/bootstrap.css') }}">
+
+</head>
+
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="my-0 mr-md-auto font-weight-normal text-white">
+        <h6>新型冠状病毒肺炎中医药推荐方分析系统</h6>
+    </div>
+    <!-- <a class="navbar-brand text-white">南京中医药大学干部在线学习考试系统</a> -->
+    <h6 class="text-white"></h6>
+</nav>
+<div class="container">
+    <div class="tendency">
+        <div class="map_header">数据分析</div>
+        <ul class="map_body">
+            <li>
+                <p style="color: black">频次统计</p>
+                <p>频次是指单位时间内出现的次数。频次越多，表示出现越频繁。 频率是指两次出现的时间间隔的倒数。</p>
+                <a href="{{ url_for('num_count') }}">Here Go</a>
+            </li>
+            <li>
+                <p style="color: black">关联规则</p>
+                <p>关联规则是形如X→Y的蕴涵式，其中， X和Y分别称为关联规则的先导 和后继。其中，关联规则XY，存在支持度和信任度。
+                </p>
+                <a href="{{ url_for('rules') }}">Here Go</a>
+            </li>
+            <li>
+                <p style="color: black">聚类分析</p>
+                <p>聚类分析指将物理或抽象对象的集合分组为由类似的对象组成的多个类的分析过程。</p>
+                <a href="{{ url_for('km') }}">Here Go</a>
+            </li>
+        </ul>
+    </div>
+    <hr>
+    <!-- map -->
+    <div class="brief">
+        <div class="brief_header">
+            <h2>中国疫情</h2>
+            <p>更新时间：2020-5-19 11:23:05</p>
+            <a href="{{ url_for('china') }}">
+                <h3>海外疫情</h3>
+            </a>
+        </div>
+        <ul class="brief_body">
+
+        </ul>
+        <div class="map">
+            <div class="map_info"></div>
+            <div class="map_tab">
+                <span class="cur">累计确诊</span>
+                <span>现有确诊</span>
+            </div>
+        </div>
+    </div>
+    <!-- trend -->
+
+</div>
+<script src="{{ url_for('static',filename='js/echarts.js') }}"></script>
+<script src="{{ url_for('static',filename='js/flexible.js') }}"></script>
+<script src="{{ url_for('static',filename='js/jquery.min.js') }}"></script>
+<script src="{{ url_for('static',filename='js/chinahtml.js') }}"></script>
+<script src="{{ url_for('static',filename='js/china.js') }}"></script>
+<script src="{{ url_for('static',filename='js/nameMap.js') }}"></script>
+
+{#    <script src="js/echarts.js"></script>#}
+{#    <script src="js/flexible.js"></script>#}
+{#    <script src="js/jquery.min.js"></script>#}
+{#    <script src="js/chinahtml.js"></script>#}
+{#    <script src="js/china.js"></script>#}
+{#    <script src="js/nameMap.js"></script>#}
+
+</body>
+
+</html>
