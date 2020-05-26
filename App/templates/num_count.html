@@ -22,16 +22,16 @@
                 <div class="col-md-3"></div>
                 <div class="col-md-6">
                     <div class="form-group mb-3">
-                        <div>
-                            <button class="btn btn-primary" type="button" id="button-addon2" onclick="clsearch()">
-                                Search
-                            </button>
-                        </div>
                         <select id="herb" class="selectpicker form-control" multiple data-live-search="true">
                             {% for index,pres in pres_dic.items() %}
                                 <option value="{{ index }}">{{ pres }}</option>
                             {% endfor %}
                         </select>
+                        <div style="margin-top: 10px">
+                            <button class="btn btn-primary" type="button" id="button-addon2" onclick="clsearch()">
+                                开始统计
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

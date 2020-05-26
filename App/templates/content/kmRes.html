@@ -1,13 +1,96 @@
-<div id="main" style="width: 100%;height:800px;"></div>
+<nav class="nav nav-pills nav-fill">
+    {#    <div class="nav nav-tabs" id="nav-tab" role="tablist">#}
+    <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
+       aria-controls="nav-home" aria-selected="true">表格</a>
+    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
+       aria-controls="nav-profile" aria-selected="false">可视化</a>
+    <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-predict" role="tab"
+       aria-controls="nav-profile" aria-selected="false">预测</a>
+    {#    </div>#}
+</nav>
+<div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">簇集</th>
+                        <th scope="col">#</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for key,vals in labels_dict.items() %}
+                        <tr>
+                            <th scope="row">{{ key }}</th>
+                            <td>
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">处方ID</th>
+                                        <th scope="col">发布的省</th>
+                                        <th scope="col">处方内容</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>{% for foo in vals %}
+                                        <tr>
+                                            <th scope="row">{{ pres_dic[foo][0] }}</th>
+                                            <th scope="row">{{ pres_dic[foo][1] }}</th>
+                                            <th scope="row">{{ pres_dic[foo][2] }}</th>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                <div id="main" style="width: 900px;height:770px;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+        <div id="chartmain" style="width: 1200px;height:800px;"></div>
+    </div>
+    <div class="tab-pane fade" id="nav-predict" role="tabpanel" aria-labelledby="nav-profile-tab">
+        <input type="text" id="inpredict" name="inpredict" placeholder="使用;分隔" style="width: 500px"/>
+        <button type="button" class="btn btn-primary" id="btn_inpredict" name="btn_inpredict">
+            <span class="spinner-border spinner-border-sm" id="btn_spin_1" role="status" aria-hidden="true"
+                  hidden></span>
+            提交预测
+        </button>
+        <hr>
+        <div id="predict_res">
 
+        </div>
+    </div>
+</div>
 
 
 <script>
-    var myChart = echarts.init(document.getElementById('main'));
+    var myChart = echarts.init(document.getElementById('chartmain'));
     var data1 = {{ nodes|safe }};
     var links1 = {{ links|safe }};
     {#console.log({{nodes}});#}
     {#console.log(links1);#}
+
+    $('#btn_inpredict').click(function () {
+        $("#btn_spin_1").removeAttr("hidden");
+        $.ajax({
+            url: '{{ url_for('classif') }}',
+            type: 'POST',
+            data: JSON.stringify({"data": $('#inpredict').val()}),
+            contentType: "application/json", // 默认以formdata形式发送给后台
+            sync: false,
+            success: function (res) {
+                $("#btn_spin_1").attr("hidden", "true");
+                $("#predict_res").html(res);
+            }
+        })
+    })
 
     option = {
         tooltip: {

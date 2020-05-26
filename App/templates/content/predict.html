@@ -1,0 +1,22 @@
+<p><strong>聚类结果:{{ typ }}</strong></p>
+<p>未找到的药物:{{ unfind }}</p>
+<div>
+    <p>同一簇的处方:</p>
+    <table class="table" style="margin-left: 100px">
+        <thead>
+        <tr>
+            <th scope="col">处方ID</th>
+            <th scope="col">发布的省</th>
+            <th scope="col">处方内容</th>
+        </tr>
+        </thead>
+        <tbody>{% for v in res %}
+            <tr>
+                <th scope="row">{{ v[0] }}</th>
+                <th scope="row">{{ v[1] }}</th>
+                <th scope="row">{{ v[2] }}</th>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
