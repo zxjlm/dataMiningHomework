@@ -35,23 +35,25 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <div id="xing" class="form-control" style="height:400px;"></div>
+            {% if show_echart %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div id="xing" class="form-control" style="height:400px;"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div id="wei" class="form-control" style="height:400px;"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <div id="guijing" class="form-control" style="height:400px;"></div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <div id="wei" class="form-control" style="height:400px;"></div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <div id="guijing" class="form-control" style="height:400px;"></div>
-                    </div>
-                </div>
-            </div>
+            {% endif %}
         </div>
 
     </div>

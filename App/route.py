@@ -31,7 +31,7 @@ def num_count(query_condition=None):
     '''
     pres_ll = get_all_pres()
     if query_condition is None:
-        return render_template('num_count.html', data={}, elem=[], pres_dic=dict(enumerate(pres_ll)))
+        return render_template('num_count.html', show_echart=False, data={}, elem=[], pres_dic=dict(enumerate(pres_ll)))
     else:
         res_ll, legend_data_list = get_feature(app.config['XING_LIST'], app.config['WEI_LIST'],
                                                app.config['GUIJING_LIST'], query_condition.split(','))
@@ -40,7 +40,7 @@ def num_count(query_condition=None):
             'object_list': [app.config['XING_LIST'], app.config['WEI_LIST'], app.config['GUIJING_LIST']],
             'legend_data_list': legend_data_list,
             'result_list': res_ll
-        }, elem=['xing', 'wei', 'guijing'], pres_dic=dict(enumerate(pres_ll)))
+        }, elem=['xing', 'wei', 'guijing'], show_echart=True, pres_dic=dict(enumerate(pres_ll)))
 
 
 @app.route('/components/rule', methods=['POST'])
